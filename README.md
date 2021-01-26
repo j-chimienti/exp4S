@@ -3,16 +3,22 @@
 Scala wrapper around Exp4j library. This is still under-development and 
 more features to come. Read more about [exp4j](http://www.objecthunter.net/exp4j/). 
 
-### Maven co-ordinates / download
+### Install
 
-Exp4s is hosted only my personal github maintained repo server. 
-Please find the below co-ordinates to usage.
+tag:
+scala 2.11 = 0.0.4
+scala 2.13 = 0.0.5
 
-**current version** 0.0.4
+```
+lazy val exp4S = RootProject(uri("https://github.com/JWWeatherman/exp4S.git#<TAG>"))
 
-    //moma -> my own maven archive :)
-    resolvers ++= Seq("moma" at "https://github.com/prassee/moma/raw/master/snapshots")
-    libraryDependencies ++= Seq("me.prassee" %% "exp4s" % "<current_version>")
+lazy val myproject = (project in file("."))
+  .dependsOn(exp4S)
+  .aggregate(exp4S)
+```
+
+
+
 
 ### Usage
 
