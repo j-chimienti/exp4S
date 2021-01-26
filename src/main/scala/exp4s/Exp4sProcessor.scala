@@ -6,7 +6,6 @@ object Exp4sProcessor {
 
   private implicit class AsTuple(config: Array[String]) {
     def ~>(values: Seq[Double]): Map[String, Double] = {
-      val len = values.length
       val x: Array[(String, Double)] = for {
         conf  <- config
         value <- values.toArray
@@ -25,13 +24,13 @@ object Exp4sProcessor {
         .evaluate()
   }
 
-  def forFormula(formStr: String)(vars: String*)(vals: Double*): Double = formStr ~~> (vars.toArray ~> vals.toArray)
+  def forFormula(formStr: String)(vars: Array[String])(vals: Array[Double]): Double = formStr ~~> (vars ~> vals)
 
   def compileFormula(formulaSource: String, values: Double*): Double = {
     val x           = formulaSource.split(" with ")
     val rawFormula  = x(0)
     val formulaVars = x(1).split(",")
-    forFormula(rawFormula)(formulaVars: _*)(values: _*)
+    forFormula(rawFormula)(formulaVars)(values.toArray)
   }
 
 }
